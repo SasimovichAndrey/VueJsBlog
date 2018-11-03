@@ -13,18 +13,24 @@
 </template>
 
 <script>
+
 export default {
     data(){
         return{
             email: '',
             password: '',
-            error: null,
-            wasValidated
+            error: null
         }
     },
     methods: {
         login(){
             if(this.email.trim() != '' && this.password.trim() != ''){
+
+                this.$store.dispatch('user/userLogin', {
+                    email: this.email,
+                    password: this.password
+                })
+
                 this.$router.push({path: '/'})
             }
         }
