@@ -1,5 +1,4 @@
-import axios from 'axios'
-import qs from 'qs'
+
 
 export default {
     state: {
@@ -7,9 +6,13 @@ export default {
         name: null
     },
     mutations: {
-        userLogin(state, {userName, token}){
+        setUser(state, {userName, token}){
             state.name = userName;
             state.token = token;
+        },
+        logoutUser(state){
+            state.name = null,
+            state.token = null
         }
     },
     getters: {
@@ -18,23 +21,38 @@ export default {
         }
     },
     actions: {
-        userLogin(context, {email, password}){
-            const config = {
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-              }
+        restoreUserState(context){
+            const token = localStorage.getItem('token');
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            const userName = localStorage.getItem('userName');
+            const now = new Date();
 
-            const authData = {
-                grant_type: 'password',
-                username: email,
-                password: password
+            if(token && now <= expirationDate){
+                const expiresIn = (expirationDate.getTime() - now.getTime()) / 1000;
+
+                context.dispatch('loginUser', {userName, token, expiresIn});
             }
+        },
+        loginUser(context, userData){
+            const {expiresIn, userName, token} = userData
+            const now = new Date();
+            const expDate = new Date(now.getTime() + expiresIn * 1000);
+            localStorage.setItem('expirationDate', expDate);
+            localStorage.setItem('userName', userName)
+            localStorage.setItem('token', token)  
 
-            axios.post('http://localhost:57845/token', qs.stringify(authData), config)
-              .then(response => {
-                context.commit('userLogin', { userName: authData.username, token: response.data.access_token })
-              })      
+            setTimeout(() => {
+                context.dispatch('logoutUser')
+            }, expiresIn * 1000)
+
+            context.commit('setUser', userData)
+        },
+        logoutUser(context){
+            localStorage.removeItem('expirationDate');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('token');  
+
+            context.commit('logoutUser')
         }
     }
 }

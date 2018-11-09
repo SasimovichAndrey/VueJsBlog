@@ -16,7 +16,9 @@
     "popper.js": "^1.14.4",
     "qs": "^6.5.2",
     "vue": "^2.5.11",
+    "vue-froala-wysiwyg": "^2.9.0",
     "vue-router": "^3.0.1",
+    "vuelidate": "^0.7.4",
     "vuex": "^3.0.1"
   },
   "browserslist": [
@@ -25,6 +27,7 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
@@ -32,6 +35,10 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
+    "url": "^0.11.0",
+    "url-loader": "^1.1.2",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",

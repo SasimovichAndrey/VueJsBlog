@@ -1,9 +1,9 @@
 <template>
-    <div class="container">
-      <blog-header></blog-header>
-      <div class="row">
+    <div class="container blog-container">
+      <blog-header class="blog-header row"></blog-header>
+      <div class="row blog-content-row">
         <div class="col-sm-12">
-          Welcome
+          <router-view></router-view>
         </div>
       </div>
     </div>
@@ -19,3 +19,4 @@ export default {
     }
 }
 </script>
+

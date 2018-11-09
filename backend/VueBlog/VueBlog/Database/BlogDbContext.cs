@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using VueBlog.Database.Entities;
 
 namespace VueBlog.Database
 {
@@ -12,7 +13,10 @@ namespace VueBlog.Database
     {
         public BlogDbContext() : base("Default")
         {
-
+            this.Configuration.LazyLoadingEnabled = false;
         }
+
+        public DbSet<BlogArticle> Articles { get; set; }
+        public DbSet<ArticleComment> ArticleComments { get; set; }
     }
 }

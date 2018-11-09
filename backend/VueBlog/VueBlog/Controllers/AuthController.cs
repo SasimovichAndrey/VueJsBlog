@@ -18,6 +18,7 @@ namespace VueBlog.Controllers
 
         public AuthController()
         {
+            // inject it
             var ctx = new BlogDbContext();
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(ctx));
         }

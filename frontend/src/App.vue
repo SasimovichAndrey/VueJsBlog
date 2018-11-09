@@ -6,11 +6,14 @@
 
 <script>
 
+
 export default {
-  
+    created(){
+      this.$store.dispatch('user/restoreUserState')
+    }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  @import './styles/site.scss';
 </style>

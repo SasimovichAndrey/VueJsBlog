@@ -1,8 +1,10 @@
 <template>
-    <div id="blog-header">
-        Blog header
+    <div id="blog-header" @click="$router.push({path:'/'})">
+        <div class="col-sm-12">
+            ANDREI SASIMOVICH
 
-        <div v-if="isUserLoggedIn"> Hello, {{user.name}}</div>
+            <div v-if="isUserLoggedIn"> Hello, {{user.name}}</div>
+        </div>
     </div>
 </template>
 
@@ -21,10 +23,3 @@ export default {
 }
 </script>
 
-
-<style>
-    #blog-header{
-        width:100%;
-        height:200px;
-    }
-</style>
