@@ -19,18 +19,7 @@
             </div>
             <div class="form-group">
                 <label for="contentInput">Content:</label>
-                <froala 
-                    :tag="'textarea'" 
-                    :config="htmlEditorConfig" 
-                    v-model="content" 
-                    :class="{'is-invalid': $v.content.$error}"
-                    class="form-control">
-                </froala>
-                <!-- <textarea id="contentInput" class="form-control" 
-                    v-model="content"
-                    @blur="$v.content.$touch()"
-                    :class="{'is-invalid': $v.content.$error}"
-                /> -->
+                <div id="article-content-summernote" ref="contentInput"></div>
             </div>
             <input type="submit" class="btn btn-primary" value="Post" :disabled="$v.$invalid"/>
         </form>
@@ -40,23 +29,14 @@
 <script>
 
 import { required } from 'vuelidate/lib/validators'
+import constants from './../constants'
 
 const component =  {
     data(){
         return {
             title: '',
             previewContent: '',
-            content: '',
-            htmlEditorConfig: {
-                events:{
-                    'froalaEditor.blur': function(e, editor) {
-                        this.$v.content.$touch()
-                        if(this.$v.content.$error){
-                            console.log('add reb border to invalid html editor')
-                        }
-                    }.bind(this)
-                }
-            }
+            content: ''
         }
     },
     methods:{
@@ -82,8 +62,12 @@ const component =  {
             required
         }
     },
-    created(){
-        this.self = this
+    mounted(){
+        var input = $(this.$refs.contentInput)
+        input.summernote()
+        input.on('summernote.change', function(e, contents){
+                this.content = contents
+            }.bind(this))
     }    
 }
 

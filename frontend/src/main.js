@@ -5,24 +5,20 @@ import routes from './routes'
 import { store } from './store/store';
 import Vuelidate from 'vuelidate';
 import axios from 'axios';
-
-import VueFroala from 'vue-froala-wysiwyg'
-require('froala-editor/js/froala_editor.pkgd.min')
-require('froala-editor/css/froala_editor.pkgd.min.css')
-require('font-awesome/css/font-awesome.css')
-require('froala-editor/css/froala_style.min.css')
+import constants from './constants';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.css';
+import 'summernote/dist/summernote.css';
+import 'summernote';
 
 Vue.use(VueRouter)
 var router = new VueRouter({
   routes
 })
 
-Vue.use(VueFroala)
-
-axios.defaults.baseURL = 'http://localhost:57845'
+axios.defaults.baseURL = constants.apiUrl;
 axios.interceptors.request.use(cfg => {
   if(store.state.user.token != null && cfg.url != '/token'){
     cfg.headers.common['Authorization'] = `Bearer ${store.state.user.token}`
