@@ -1,17 +1,14 @@
-.article{
-    margin-top: 10px;
+.blog-article-container{
     background-color: $siteArticleBgColor;
     padding: 10px;
-    color:$siteArticleFontColor;
-}
+    margin-top:10px;
 
-.article-title{
-    a{
+    .blog-article-title{
         font-weight: 700;
         color: $siteArticleTitleFontColor;
     }
 
-    a:visited{
-        color:gray;
+    .blog-article-content{
+        color: $siteArticleFontColor;
     }
-} 
+}

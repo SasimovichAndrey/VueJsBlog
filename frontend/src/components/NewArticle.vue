@@ -1,6 +1,6 @@
 <template>
     <div class="new-article-page">
-        <form no-validate @submit.prevent="addArticle">
+        <form no-validate @submit.prevent="addArticle" v-show="!showingPreview">
             <div class="form-group">
                 <label for="titleInput">Title:</label>
                 <input type="text" id="titleInput" class="form-control" 
@@ -23,11 +23,21 @@
             </div>
             <input type="submit" class="btn btn-primary" value="Post" :disabled="$v.$invalid"/>
         </form>
+        <div v-show="showingPreview">
+            <div>Preview:</div>
+            <article-preview :article="newArticle"></article-preview>
+            <div>Full:</div>
+            <blog-article :article="newArticle"></blog-article>
+        </div>
+        <div class="preview-controls">
+            <input type="button" class="btn" @click="showingPreview = !showingPreview" value="Show / Hide preview"/>
+        </div>
     </div>
 </template>
 
 <script>
-
+import BlogArticle from './BlogArticle.vue';
+import ArticlePreview from './ArticlePreview';
 import { required } from 'vuelidate/lib/validators'
 import constants from './../constants'
 
@@ -36,19 +46,23 @@ const component =  {
         return {
             title: '',
             previewContent: '',
-            content: ''
+            content: '',
+            showingPreview: false
         }
     },
     methods:{
         addArticle(){
-            debugger
-            let newArticle = {
+            this.$store.dispatch('articles/addArticle', { newArticle: this.newArticle, router: this.$router })
+        }
+    },
+    computed:{
+        newArticle(){
+            return {
                 title: this.title,
                 previewContent: this.previewContent,
-                content: this.content
+                content: this.content,
+                comments: []
             }
-
-            this.$store.dispatch('articles/addArticle', { newArticle, router: this.$router })
         }
     },
     validations: {
@@ -68,7 +82,11 @@ const component =  {
         input.on('summernote.change', function(e, contents){
                 this.content = contents
             }.bind(this))
-    }    
+    },
+    components:{
+        BlogArticle,
+        ArticlePreview
+    }
 }
 
 export default component
