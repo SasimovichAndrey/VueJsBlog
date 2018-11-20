@@ -1,17 +1,19 @@
 <template>
     <div class="article-comments-section">
-        <div v-if="comments.length > 0">
+        <div v-show="comments.length > 0">
             <div>Comments: </div>
-            <div class="article-comment-container" v-for="comment in comments" :key="comment.id">
-                <div class="article-comment-author">
-                    {{comment.commentatorName}}
+            <transition-group name="article-comment-transition" tag="div">
+                <div class="article-comment-container" v-for="comment in comments" :key="comment.id">
+                    <div class="article-comment-author">
+                        {{comment.commentatorName}}
+                    </div>
+                    <div class="article-comment-content">
+                        {{comment.content}}
+                    </div>
                 </div>
-                <div class="article-comment-content">
-                    {{comment.content}}
-                </div>
-            </div>
+            </transition-group>
         </div>
-        <div v-else>
+        <div v-show="comments.length == 0">
             No comments yet
         </div>
         <div class="comment-form">
@@ -61,7 +63,7 @@ export default {
             this.$store.dispatch('articles/commentArticle', newComment)
 
             this.comment = ''
-            this.author = ''
+            this.commentatorName = ''
         }
     },
     validations: {
@@ -75,3 +77,12 @@ export default {
 }
 </script>
 
+<style>
+    .article-comment-transition-enter{
+        opacity: 0;
+    }
+
+    .article-comment-transition-enter-active{
+        transition: opacity 1s ease-in;
+    }
+</style>

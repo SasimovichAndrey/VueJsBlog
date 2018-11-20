@@ -1,0 +1,11 @@
+$siteBorderColor: #770328;
+$siteHeaderColor: #9c0635;
+$siteContentBackgroundColor: white;
+$siteArticleBgColor: #fdfdfd;
+$siteArticleFontColor: #33322a;
+$siteArticleTitleFontColor: #40403d;
+
+$primary: $siteHeaderColor;
+$body-bg: #fdfdfd;
+
+@import "./../../node_modules/bootstrap/scss/bootstrap";

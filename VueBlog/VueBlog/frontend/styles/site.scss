@@ -4,9 +4,13 @@
 @import './components/article-preview.scss';
 @import './components/new-article-page.scss';
 @import './components/blog-article.scss';
+@import './components/article-comments.scss';
 
 body {
     font-size: 14pt;
-    background-color: $siteBackgroundColor;
     padding-bottom: 20px;
+}
+
+.blog-container{
+    border: 1px solid $siteBorderColor;
 }

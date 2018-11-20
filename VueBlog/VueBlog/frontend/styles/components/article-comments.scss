@@ -1,0 +1,10 @@
+.article-comment-container{
+    background-color: $siteArticleBgColor;
+    border-radius:5px;
+    padding:10px;
+    margin-bottom:10px;
+
+    .article-comment-author{
+        font-weight: bold;
+    }
+}

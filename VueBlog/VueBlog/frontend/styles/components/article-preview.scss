@@ -1,6 +1,8 @@
 .article{
     margin-top: 10px;
     background-color: $siteArticleBgColor;
+    border: 1px solid $siteBorderColor;
+    border-radius: 4px;
     padding: 10px;
     color:$siteArticleFontColor;
 }

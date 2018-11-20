@@ -41,7 +41,7 @@ const setupFunc = (axios) => {
         return [200, articles.find(a => a.id == articleId)]
     })
 
-    mock.onPost(/\/api\/articles\/\d+\/comments/).reply(config => {
+    mock.onPost(/\/api\/articles\/comments/).reply(config => {
         let commentFromRequest = JSON.parse(config.data)
         let article = articles.find(a => a.id == commentFromRequest.articleId)
         let newCommentId = article.comments.length > 0 ? article.comments[article.comments.length - 1].id + 1 : 1
@@ -50,8 +50,11 @@ const setupFunc = (axios) => {
         let newComment = {
             id: newCommentId,
             content: commentFromRequest.content,
-            articleId: commentFromRequest.articleId
+            articleId: commentFromRequest.articleId,
+            commentatorName: commentFromRequest.commentatorName
         }
+
+        article.comments.push(newComment);
         return [200, newComment]
     })
     
