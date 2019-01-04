@@ -8,6 +8,8 @@
 }
 
 .article-title{
+    float:left;
+
     a{
         font-weight: 700;
         color: $siteArticleTitleFontColor;
@@ -17,3 +19,7 @@
         color:gray;
     }
 } 
+
+.article-preview-component-controls{
+    float:right;
+}

@@ -53,6 +53,12 @@ export default {
                 .then(response => {
                     router.push({path: '/'})
                 })
+        },
+        deleteArticle(context, id){
+            axios.delete(`/api/articles/${id}`)
+                .then(response => {
+                    context.commit('deleteArticle', id);
+                })
         }
     }
 }
