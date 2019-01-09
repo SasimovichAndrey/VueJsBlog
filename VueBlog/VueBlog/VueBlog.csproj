@@ -176,6 +176,7 @@
     <Compile Include="Database\BlogDbContext.cs" />
     <Compile Include="Database\Entities\ArticleComment.cs" />
     <Compile Include="Database\Entities\BlogArticle.cs" />
+    <Compile Include="Filters\DbUpdateConcurrencyExceptionFilter.cs" />
     <Compile Include="Migrations\201811032122512_Init.cs" />
     <Compile Include="Migrations\201811032122512_Init.Designer.cs">
       <DependentUpon>201811032122512_Init.cs</DependentUpon>

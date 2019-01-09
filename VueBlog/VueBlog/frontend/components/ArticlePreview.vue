@@ -16,8 +16,8 @@
 export default {
     props: ['article'],
     methods: {
-        deleteArticle: () => {
-            console.log('delete article handler')
+        deleteArticle(){
+            this.$store.dispatch('articles/deleteArticle', this.article.id);
         }
     }
 }

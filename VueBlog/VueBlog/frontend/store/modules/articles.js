@@ -23,6 +23,10 @@ export default {
         commentAdded(state, comment){
             var article = state.selectedArticle.article
             article.comments.push(comment)
+        },
+        deleteArticle(state, id){
+            var articleIndex = state.all.indexOf(a => a.id == id);
+            state.all = state.all.splice(articleIndex, 1);
         }
     },
     actions: {

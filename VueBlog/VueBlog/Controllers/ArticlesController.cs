@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Web.Http;
 using VueBlog.Database;
 using VueBlog.Models;
@@ -9,6 +9,7 @@ using VueBlog.Database.Entities;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Linq;
+using System;
 
 namespace VueBlog.Controllers
 {
@@ -69,7 +70,7 @@ namespace VueBlog.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("comments")]
         public async Task<ArticleCommentViewModel> Post(ArticleCommentViewModel model)
         {
@@ -88,6 +89,25 @@ namespace VueBlog.Controllers
             else
             {
                 throw new System.Exception("Bad request");
+            }
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        public async Task<IHttpActionResult> Delete(int id)
+        {
+            var articleToDelete = _dbContext.Articles.SingleOrDefault(a => a.Id == id);
+
+            if(articleToDelete != null)
+            {
+                _dbContext.Articles.Remove(articleToDelete);
+                var rowsAffected = await _dbContext.SaveChangesAsync();
+
+                return Ok();
+            }
+            else
+            {
+                return Conflict();
             }
         }
     }

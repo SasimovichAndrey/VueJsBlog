@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using VueBlog.Filters;
 
 namespace VueBlog
 {
@@ -19,6 +20,13 @@ namespace VueBlog
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            _RegisterFilters(config);
+        }
+
+        private static void _RegisterFilters(HttpConfiguration config)
+        {
+            config.Filters.Add(new DbUpdateConcurrencyExceptionFilter());
         }
     }
 }
