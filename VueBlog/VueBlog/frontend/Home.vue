@@ -8,7 +8,7 @@
           </transition>
         </div>
       </div>
-      <div id="blog-footer" class="bg-primary row">
+      <div id="blog-footer" class="bg-gradient-primary row">
       </div>
     </div>
 </template>
