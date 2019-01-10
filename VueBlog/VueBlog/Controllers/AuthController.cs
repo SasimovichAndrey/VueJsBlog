@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using VueBlog.Database;
@@ -14,16 +13,18 @@ namespace VueBlog.Controllers
 {
     public class AuthController : ApiController
     {
+        private readonly UserStore<IdentityUser> _userStore;
         private readonly UserManager<IdentityUser> _userManager;
 
         public AuthController()
         {
             // inject it
             var ctx = new BlogDbContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(ctx));
+            _userStore = new UserStore<IdentityUser>(ctx);
+            _userManager = new UserManager<IdentityUser>(_userStore);
         }
 
-        public async Task<IHttpActionResult> Register(RegisterModel registerModel)
+        public async Task<IHttpActionResult> RegisterNewUser(RegisterModel registerModel)
         {
             try
             {
@@ -48,6 +49,18 @@ namespace VueBlog.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<UserApiModel> GetCurrentUser()
+        {
+            var currentUserName = ((ClaimsPrincipal)this.User).Claims.Single(c => c.Type == "userName").Value;
+            var user = await _userStore.FindByNameAsync(currentUserName);
+
+            var model = Mapper.Map<UserApiModel>(user);
+
+            return model;
         }
 
         protected override void Dispose(bool disposing)
