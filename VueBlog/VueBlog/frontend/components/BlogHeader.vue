@@ -18,6 +18,11 @@
                 </li>
             </router-link>
         </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" v-if="isUserLoggedIn">
+                <a class="nav-link" href="" @click="logout($event)">Logout</a>
+            </li>
+        </ul>
     </div>
 </nav>
 </template>
@@ -34,6 +39,12 @@ export default {
         ...mapGetters({
             isUserLoggedIn: "user/isLoggedIn"
         })
+    },
+    methods: {
+        logout(domEvent){
+            domEvent.preventDefault();
+            this.$store.dispatch('user/logoutUser')
+        }
     }
 };
 </script>

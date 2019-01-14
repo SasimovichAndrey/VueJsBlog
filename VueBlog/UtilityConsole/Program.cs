@@ -16,7 +16,7 @@ namespace UtilityConsole
             var adminRole = new IdentityRole("Admin");
             roleManager.Create(adminRole);
 
-            var adminPassword = "";
+            var adminPassword = "password";
             var adminUser = new IdentityUser("Administrator");
             var user = userManager.Create(adminUser, adminPassword);
 

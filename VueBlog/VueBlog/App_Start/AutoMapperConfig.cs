@@ -21,7 +21,6 @@ namespace VueBlog
             cfg.CreateMap<BlogArticle, ArticleViewModel>().ReverseMap();
             cfg.CreateMap<ArticleComment, ArticleCommentViewModel>().ReverseMap();
             cfg.CreateMap<IdentityUser, UserApiModel>();
-                //.ForMember(r => r.Roles, opt => opt.MapFrom(src => src.Roles.Select(srcRole => srcRole.;
         }
     }
 }

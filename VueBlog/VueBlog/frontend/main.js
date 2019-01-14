@@ -20,15 +20,15 @@ var router = new VueRouter({
   routes
 })
 
-// axios.interceptors.request.use(cfg => {
-//   if(store.state.user.token != null && cfg.url != '/token'){
-//     cfg.headers.common['Authorization'] = `Bearer ${store.state.user.token}`
-//   }
+axios.interceptors.request.use(cfg => {
+  if(store.state.user.token != null && cfg.url != '/token'){
+    cfg.headers.common['Authorization'] = `Bearer ${store.state.user.token}`
+  }
 
-//   return cfg;
-// })
-import axiosMocksSetup from './mocks/axiosMocksSetup'
-axiosMocksSetup(axios);
+  return cfg;
+})
+// import axiosMocksSetup from './mocks/axiosMocksSetup'
+// axiosMocksSetup(axios);
 
 Vue.use(Vuelidate)
 

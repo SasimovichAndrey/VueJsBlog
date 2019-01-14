@@ -8,6 +8,7 @@ namespace VueBlog.Models
     public class UserApiModel
     {
         public string UserName { get; set; }
-        public string[] Roles { get; set; }
+        //public string[] Roles { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

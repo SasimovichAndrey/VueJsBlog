@@ -3,24 +3,29 @@ import axios from 'axios'
 export default {
     state: {
         token: null,
-        name: null,
-        roles: null
+        userName: null,
+        isAdmin: null
     },
     mutations: {
         setToken(state, {userName, token}){
             state.token = token;
         },
-        logoutUser(state){
+        logoutUserAndClearTokenData(state){
             state.token = null
+            state.userName = null
+            state.isAdmin = null
         },
-        setUser(state, {userName, roles}){
+        setUser(state, {userName, isAdmin}){
             state.userName = userName;
-            state.roles = roles;
+            state.isAdmin = isAdmin;
         }
     },
     getters: {
         isLoggedIn: state =>  {
             return state.token != null
+        },
+        isCurrentUserAdmin(state, getters){
+            return getters.isLoggedIn && state.isAdmin;
         }
     },
     actions: {
@@ -64,7 +69,7 @@ export default {
             localStorage.removeItem('expirationDate');
             localStorage.removeItem('token');  
 
-            context.commit('logoutUser')
+            context.commit('logoutUserAndClearTokenData')
         }
     }
 }

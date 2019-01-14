@@ -59,6 +59,7 @@ namespace VueBlog.Controllers
             var user = await _userStore.FindByNameAsync(currentUserName);
 
             var model = Mapper.Map<UserApiModel>(user);
+            model.IsAdmin = await _userStore.IsInRoleAsync(user, "Admin");
 
             return model;
         }

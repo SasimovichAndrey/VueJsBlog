@@ -4,7 +4,10 @@
             <a>{{article.title}}</a>
         </router-link>
         <div class="article-preview-component-controls">
-            <button class="delete-button" @click="deleteArticle" v-if="isCurrentUserAdmin()">
+            <button 
+                class="delete-button" 
+                @click="deleteArticle" 
+                v-if="isCurrentUserAdmin()">
                 X
             </button>
         </div>
@@ -20,7 +23,7 @@ export default {
             this.$store.dispatch('articles/deleteArticle', this.article.id);
         },
         isCurrentUserAdmin(){
-            return true
+            return this.$store.getters["user/isCurrentUserAdmin"];
         }
     }
 }
