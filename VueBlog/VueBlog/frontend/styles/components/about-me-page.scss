@@ -1,3 +1,47 @@
 #about-me-container{
     padding-top:10px;
+
+    @include media-breakpoint-down(sm) {
+        .left-column{
+            width:100%;
+            margin-bottom: 20px;
+        }
+        .right-column{
+            width: 100%;
+        }
+    }
+
+    @include media-breakpoint-up(md){
+        .left-column{
+            width:210px;
+            margin-right: 20px;
+        }
+        .right-column{
+            width: 450px;
+        }  
+    }
+
+    @include media-breakpoint-up(lg){
+        .right-column{
+            width: 690px;
+        }  
+    }
+
+    @include media-breakpoint-up(xl){
+        .right-column{
+            width: 870px;
+        }  
+    }
+
+    .left-column{
+        float:left;
+    }
+    .right-column{
+        float:left;
+    }
+
+    #photoOfMe{
+        width: 100%;
+        border-radius: 25px;
+    }
 }

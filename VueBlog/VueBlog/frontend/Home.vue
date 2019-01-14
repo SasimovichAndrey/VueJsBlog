@@ -2,7 +2,7 @@
     <div class="container blog-container">
       <blog-header class="blog-header row"></blog-header>
       <div class="row blog-content-row">
-        <div class="col-sm-12">
+        <div class="col-12">
           <transition name="site-content-transition" mode="out-in">
             <router-view></router-view>
           </transition>
