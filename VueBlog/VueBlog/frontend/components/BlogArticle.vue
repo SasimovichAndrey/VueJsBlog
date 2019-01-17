@@ -6,8 +6,16 @@
 </template>
 
 <script>
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'
+
 export default {
-    props: ['article']
+    props: ['article'],
+    mounted(){
+        $('pre code').each((i, el) => {
+            hljs.highlightBlock(el);
+        })
+    }
 }
 </script>
 

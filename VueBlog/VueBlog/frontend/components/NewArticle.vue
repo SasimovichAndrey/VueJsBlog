@@ -37,6 +37,19 @@ import ArticlePreview from './ArticlePreview';
 import { required } from 'vuelidate/lib/validators';
 import constants from './../constants';
 import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'
+
+function assignSummernoteChangeEventHandler($input, dataPropChangeFunc){
+    $input.on('summernote.change', function(we, contents, $editable){
+        if($editable){
+            $editable.find('pre code').each((i, el) => {
+                hljs.highlightBlock(el);                
+            })
+        }
+
+        dataPropChangeFunc(contents);
+    })
+}
 
 const component =  {
     data(){
@@ -81,18 +94,13 @@ const component =  {
             height: '400px'
         }
 
-        var contentInput = $(this.$refs.contentInput)
-        contentInput.summernote(summernoteConfig)
-        contentInput.on('summernote.change', function(we, contents, $editable){
-                this.content = contents;
-            }.bind(this))
+        var $contentInput = $(this.$refs.contentInput)
+        $contentInput.summernote(summernoteConfig)
+        assignSummernoteChangeEventHandler($contentInput, function(content) {this.content = content;}.bind(this))
 
-        var previewInput = $(this.$refs.previewInput)
-        previewInput.summernote(summernoteConfig)
-        previewInput.on('summernote.change', function(e, contents){
-                this.previewContent = contents;
-                
-            }.bind(this))
+        var $previewInput = $(this.$refs.previewInput)
+        $previewInput.summernote(summernoteConfig)
+        assignSummernoteChangeEventHandler($previewInput, function(content) {this.previewContent = content;}.bind(this))
     },
     components:{
         BlogArticle,

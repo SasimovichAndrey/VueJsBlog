@@ -12,10 +12,13 @@
             </button>
         </div>
         <div class="clearfix"></div>
-        <div>{{article.previewContent}}</div>
+        <div v-html="article.previewContent"></div>
     </div>
 </template>
 <script>
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'
+
 export default {
     props: ['article'],
     methods: {
@@ -25,6 +28,11 @@ export default {
         isCurrentUserAdmin(){
             return this.$store.getters["user/isCurrentUserAdmin"];
         }
+    },
+    mounted(){
+        $('pre code').each((i, el) => {
+            hljs.highlightBlock(el);
+        })
     }
 }
 </script>
