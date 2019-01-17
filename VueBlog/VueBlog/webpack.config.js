@@ -80,9 +80,8 @@ module.exports = {
     // Jquery loader plugin.
     new webpack.ProvidePlugin({
       $: "jquery",
-      jQuery: "jquery"
-    }),
-		new webpack.IgnorePlugin(/^codemirror$/)
+      jQuery: "jquery",
+    })
   ]
 }
 

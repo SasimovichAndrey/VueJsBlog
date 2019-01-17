@@ -7,13 +7,15 @@ import Vuelidate from 'vuelidate';
 import axios from 'axios';
 import constants from './constants';
 
+//import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.css';
-// import 'codemirror'
-// import 'codemirror/mode/htmlembedded/htmlembedded'
 import 'summernote/dist/summernote-bs4.css';
 import 'summernote/dist/summernote-bs4';
+
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/lib/codemirror'
+import 'codemirror/mode/xml/xml'
 
 Vue.use(VueRouter)
 var router = new VueRouter({

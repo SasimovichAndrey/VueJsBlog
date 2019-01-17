@@ -11,11 +11,7 @@
             </div>
             <div class="form-group">
                 <label for="previewInput">Preview:</label>
-                <textarea id="previewInput" class="form-control" 
-                    v-model="previewContent" 
-                    @blur="$v.previewContent.$touch()"
-                    :class="{'is-invalid': $v.previewContent.$error}"
-                />
+                <div id="article-preview-summernote" ref="previewInput"></div>
             </div>
             <div class="form-group">
                 <label for="contentInput">Content:</label>
@@ -38,8 +34,9 @@
 <script>
 import BlogArticle from './BlogArticle.vue';
 import ArticlePreview from './ArticlePreview';
-import { required } from 'vuelidate/lib/validators'
-import constants from './../constants'
+import { required } from 'vuelidate/lib/validators';
+import constants from './../constants';
+import hljs from 'highlight.js';
 
 const component =  {
     data(){
@@ -77,10 +74,24 @@ const component =  {
         }
     },
     mounted(){
-        var input = $(this.$refs.contentInput)
-        input.summernote()
-        input.on('summernote.change', function(e, contents){
-                this.content = contents
+        var summernoteConfig = {
+            toolbar:[
+                ['toolbar', ['bold', 'italic', 'underline', 'clear', 'color', 'fontsize', 'picture', 'link', 'table', 'ol', 'ul', 'fullscreen', 'codeview', 'undo','redo', 'floatLeft', 'floatRight', 'floatNone']]
+            ],
+            height: '400px'
+        }
+
+        var contentInput = $(this.$refs.contentInput)
+        contentInput.summernote(summernoteConfig)
+        contentInput.on('summernote.change', function(we, contents, $editable){
+                this.content = contents;
+            }.bind(this))
+
+        var previewInput = $(this.$refs.previewInput)
+        previewInput.summernote(summernoteConfig)
+        previewInput.on('summernote.change', function(e, contents){
+                this.previewContent = contents;
+                
             }.bind(this))
     },
     components:{
